@@ -1,38 +1,5 @@
 from Graph.DepthFirstTraversal import *
-import numpy as np
-
-def TOPSIS(metrics):
-    num_of_properties = len(metrics)
-    max = []
-    for metric in metrics:
-        temp_list = []
-        for i in metric:
-            temp_list.append(metric[i])
-        max.append(np.max(temp_list))
-
-    # standardized
-    for i in range(num_of_properties):
-        for j in metrics[i]:
-            metrics[i][j] = metrics[i][j] / max[i]
-    print(metrics)
-
-    # PCA
-    avg = []
-    std_dev = []
-    pca_metrics = metrics
-    for metric in pca_metrics:
-        temp_list = []
-        for i in metric:
-            temp_list.append(metric[i])
-        avg.append(np.average(temp_list))
-        std_dev.append(np.std(temp_list))
-    print(avg)
-    print(std_dev)
-    for i in range(num_of_properties):
-        for j in pca_metrics[i]:
-            pca_metrics[i][j] = (pca_metrics[i][j] - avg[i])/std_dev[i]
-
-    print(pca_metrics)
+from Metric import *
 
 TE_System = Graph(directed=True)
 
@@ -79,59 +46,59 @@ TE_System.addEdge('V4', 'FI4', 0)
 TE_System.addEdge('Reactor', 'FI5', 0)
 TE_System.addEdge('Reactor', 'LI1', 0)
 TE_System.addEdge('Reactor', 'PI1', 0)
-TE_System.addEdge('Reactor', 'TI1_A', 0)
-TE_System.addEdge('TI1_A', 'PLC5', 0)
-TE_System.addEdge('Reactor', 'TI1_B', 0)
-TE_System.addEdge('TI1_B', 'PLC5', 0)
+TE_System.addEdge('PI1', 'PLC7', 0)      # 废气阀控制器
+TE_System.addEdge('Reactor', 'TI2', 0)
+TE_System.addEdge('Reactor', 'TI1', 0)
+TE_System.addEdge('TI1', 'PLC5', 0)
 TE_System.addEdge('PLC5', 'V5', 0)
 TE_System.addEdge('V5', 'Reactor', 0)
 
 # 冷凝器信息链路
-TE_System.addEdge('Condenser', 'TI2', 0)
-TE_System.addEdge('TI2', 'PLC6', 0)
+TE_System.addEdge('Condenser', 'TI3', 0)
+TE_System.addEdge('TI4', 'PLC6', 0)
 TE_System.addEdge('PLC6', 'V6', 0)
 TE_System.addEdge('V6', 'Condenser', 0)
+TE_System.addEdge('LI1', 'PLC6', 0)
 
 # 分离器信息链路
-TE_System.addEdge('Separator', 'PI3', 0)
+TE_System.addEdge('Separator', 'TI4', 0)
 TE_System.addEdge('Separator', 'FI6', 0)
-TE_System.addEdge('FI6', 'PLC7', 0)
 TE_System.addEdge('PLC7', 'V7', 0)
 TE_System.addEdge('V7', 'FI6', 0)
-TE_System.addEdge('Separator', 'TI3', 0)
-TE_System.addEdge('Separator', 'LI3', 0)
+TE_System.addEdge('Separator', 'PI3', 0)
 TE_System.addEdge('Separator', 'FI7', 0)
-TE_System.addEdge('FI7', 'PLC8', 0)
+TE_System.addEdge('Separator', 'LI3', 0)
+TE_System.addEdge('LI3', 'PLC8', 0)
 TE_System.addEdge('PLC8', 'V8', 0)
-TE_System.addEdge('V8', 'FI7', 0)
+TE_System.addEdge('V8', 'LI3', 0)
 
 # 汽提塔信息链路
-TE_System.addEdge('Stripper', 'LI4', 0)
 TE_System.addEdge('Stripper', 'PI4', 0)
-TE_System.addEdge('Stripper', 'FI8', 0)
-TE_System.addEdge('FI8', 'PLC9', 0)
+TE_System.addEdge('Stripper', 'LI4', 0)
+TE_System.addEdge('LI4', 'PLC9', 0)
 TE_System.addEdge('PLC9', 'V9', 0)
-TE_System.addEdge('V9', 'FI8', 0)
-TE_System.addEdge('Stripper', 'TI4', 0)
-TE_System.addEdge('TI4', 'PLC10', 0)
+TE_System.addEdge('V9', 'LI4', 0)
+TE_System.addEdge('V9', 'FI9', 0)
+TE_System.addEdge('Stripper', 'FI9', 0)
+TE_System.addEdge('Stripper', 'TI5', 0)
+TE_System.addEdge('TI5', 'PLC10', 0)
 TE_System.addEdge('PLC10', 'V10', 0)
 TE_System.addEdge('V10', 'Stripper', 0)
+TE_System.addEdge('V10', 'FI8', 0)
 
 # 压缩器信息链路
-TE_System.addEdge('Compressor', 'FI9', 0)
-TE_System.addEdge('FI9', 'PLC11', 0)
+TE_System.addEdge('Compressor', 'FI10', 0)
+TE_System.addEdge('FI10', 'PLC11', 0)
 TE_System.addEdge('PLC11', 'V11', 0)
 TE_System.addEdge('V11', 'Compressor', 0)
 
-print(TE_System.num_of_vertices())
-cfs = TE_System.cfs_calculate()
-eri = TE_System.eri_calculate()
-# print(cfs)
-# print(eri)
-# print(sorted(metrics.items(), key=lambda item: item[1], reverse=True))
+cfs = Metric('cfs', TE_System.cfs_calculate(), True)
+eri = Metric('eri', TE_System.eri_calculate(), True)
+
 metrics = (cfs, eri)
-# file_name = 'TE_metrics_02.xls'
-# metrics_save(filename, metrics)
-# save_all_metrics(file_name, metrics)
-# print(metrics)
-TOPSIS(metrics)
+relative_closeness = TOPSIS(metrics)
+print(relative_closeness)
+
+file_name = 'TE_closeness.xls'
+metric_save(file_name, relative_closeness)
+
