@@ -1,6 +1,6 @@
 # Program to perform depth first traversal in a graph
 from collections import defaultdict
-import xlwt
+
 class Graph:
     def __init__(self, directed=False):
         self.graph = defaultdict(list)
@@ -115,67 +115,3 @@ class Graph:
 
         return eri
 
-def metrics_save(file_name, metrics):                # 将计算结果保存到xls文件中
-    temp_list = [('节点名称', 'CFS')]
-    for metric in metrics:
-        temp_list.append((metric, metrics[metric]))
-
-    file = xlwt.Workbook()
-    sheet1 = file.add_sheet('sheet1', cell_overwrite_ok=True)
-    style = xlwt.XFStyle()
-    al = xlwt.Alignment()
-    al.vert = 0x01
-    al.horz = 0x02
-    style.alignment = al
-
-    for i in range(len(temp_list)):
-        for j in range(len(temp_list[i])):
-            sheet1.write(i, j, temp_list[i][j], style)
-    file.save(file_name)
-
-def save_all_metrics(file_name, metrics):
-    metrics_list = defaultdict(list)
-    temp_list = [('节点名称', 'CFS', 'ERI')]
-    for metric in metrics:
-        for i in metric:
-            metrics_list[i].append(metric[i])
-    for i in metrics_list:
-        temp_list.append((i, metrics_list[i][0], metrics_list[i][1]))
-
-    file = xlwt.Workbook()
-    sheet1 = file.add_sheet('sheet1', cell_overwrite_ok=True)
-    style = xlwt.XFStyle()
-    al = xlwt.Alignment()
-    al.vert = 0x01
-    al.horz = 0x02
-    style.alignment = al
-
-    for i in range(len(temp_list)):
-        for j in range(len(temp_list[i])):
-            sheet1.write(i, j, temp_list[i][j], style)
-    file.save(file_name)
-
-
-
-""" if __name__ == '__main__':
-    # make an undirected graph
-    graph = Graph()
-
-    # component 1 of the graph
-    graph.addEdge(0, 1)
-    graph.addEdge(0, 2)
-    graph.addEdge(1, 2)
-    graph.addEdge(2, 3)
-    graph.addEdge(3, 3)
-    graph.addEdge(1, 4)
-    graph.addEdge(1, 5)
-    graph.addEdge(3, 6)
-
-    # component 2 of the graph
-    graph.addEdge(7, 8)
-    graph.addEdge(8, 9)
-    graph.addEdge(7, 10)
-
-    # call dfs from 2 vertex
-    print("Depth First Traversal:")
-    graph.dfs(2) """
