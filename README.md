@@ -1,6 +1,6 @@
-# TE_metrics_calculation
+## Tennessee Eastman Process Critical Components Identification
 
-Hi there!  
-This is my Industrial Control System(based on Tennessee Eastman Process) critical node identification program.  
-Using two different metrics:Cascading Failure Scale and Effective Range of Impacts.  
-The TOPSIS process is not finished yet.  
+This is my Industrial Control System Critical Components Identification Program.  
+Including two different algorithms: my algorithm and Jiang's algorithm(as a comparison).
+  
+The calculation result are in the relative_closeness directory
