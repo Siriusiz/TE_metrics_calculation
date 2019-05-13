@@ -1,4 +1,4 @@
-# This TEP-Critical-Node-Identification-Algorithm is proposed by 姜英
+# This TEP-Critical-Node-Identification-Algorithm is proposed by 
 # Ying J , Zheng W , Yan Q , et al.
 # AHP-SDG model establishment and key node identification of chemical process system based on complex network[J].
 # Chemical Industry and Engineering Progress, 2018.(In Chinese)
@@ -107,6 +107,6 @@ FBC = Metric('FBC', nx.current_flow_betweenness_centrality(undirected_TE), True)
 metrics = (DC, CC, FBC, EC, C)
 
 relative_closeness = TOPSIS(metrics)
-file_name = '姜英_relative_closeness.xls'
+file_name = 'YingJ_relative_closeness.xls'
 metric_save(file_name, relative_closeness)
 print(relative_closeness)
