@@ -3,7 +3,7 @@ from Metric import *
 
 TE_System = Graph(directed=True)
 
-# 物料流动链路
+# Material Links
 TE_System.addEdge('A', 'V1', 1)
 TE_System.addEdge('V1', 'Reactor', 1)
 TE_System.addEdge('D', 'V2', 1)
@@ -21,7 +21,7 @@ TE_System.addEdge('V8', 'Stripper', 1)
 TE_System.addEdge('Stripper', 'V9', 1)
 TE_System.addEdge('Stripper', 'Reactor', 1)
 
-# 进料阀信息链路
+# Control Links of Feed Valves
 TE_System.addEdge('A', 'FI1', 0)
 TE_System.addEdge('FI1', 'PLC1', 0)
 TE_System.addEdge('PLC1', 'V1', 0)
@@ -42,25 +42,25 @@ TE_System.addEdge('FI4', 'PLC4', 0)
 TE_System.addEdge('PLC4', 'V4', 0)
 TE_System.addEdge('V4', 'FI4', 0)
 
-# 反应器信息链路
+# Control Links of Reactor
 TE_System.addEdge('Reactor', 'FI5', 0)
 TE_System.addEdge('Reactor', 'LI1', 0)
 TE_System.addEdge('Reactor', 'PI1', 0)
-TE_System.addEdge('PI1', 'PLC7', 0)      # 废气阀控制器
+TE_System.addEdge('PI1', 'PLC7', 0)      # Controller of purge valve
 TE_System.addEdge('Reactor', 'TI2', 0)
 TE_System.addEdge('Reactor', 'TI1', 0)
 TE_System.addEdge('TI1', 'PLC5', 0)
 TE_System.addEdge('PLC5', 'V5', 0)
 TE_System.addEdge('V5', 'Reactor', 0)
 
-# 冷凝器信息链路
+# Control Links of Condenser
 TE_System.addEdge('Condenser', 'TI3', 0)
 TE_System.addEdge('TI4', 'PLC6', 0)
 TE_System.addEdge('PLC6', 'V6', 0)
 TE_System.addEdge('V6', 'Condenser', 0)
 TE_System.addEdge('LI1', 'PLC6', 0)
 
-# 分离器信息链路
+# Control Links of Separator
 TE_System.addEdge('Separator', 'TI4', 0)
 TE_System.addEdge('Separator', 'FI6', 0)
 TE_System.addEdge('PLC7', 'V7', 0)
@@ -72,7 +72,7 @@ TE_System.addEdge('LI3', 'PLC8', 0)
 TE_System.addEdge('PLC8', 'V8', 0)
 TE_System.addEdge('V8', 'LI3', 0)
 
-# 汽提塔信息链路
+# Control Links of Stripper
 TE_System.addEdge('Stripper', 'PI4', 0)
 TE_System.addEdge('Stripper', 'LI4', 0)
 TE_System.addEdge('LI4', 'PLC9', 0)
@@ -86,7 +86,7 @@ TE_System.addEdge('PLC10', 'V10', 0)
 TE_System.addEdge('V10', 'Stripper', 0)
 TE_System.addEdge('V10', 'FI8', 0)
 
-# 压缩器信息链路
+# Control Links of Compressor
 TE_System.addEdge('Compressor', 'FI10', 0)
 TE_System.addEdge('FI10', 'PLC11', 0)
 TE_System.addEdge('PLC11', 'V11', 0)
@@ -101,4 +101,3 @@ print(relative_closeness)
 
 file_name = 'TE_closeness.xls'
 metric_save(file_name, relative_closeness)
-
