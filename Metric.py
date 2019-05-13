@@ -88,7 +88,7 @@ def TOPSIS(metrics):
         distance[i].append(np.sqrt(dist_negative))
     # print(distance)
 
-    relative_closeness = defaultdict(list)                              # 计算贴进度
+    relative_closeness = {}                              # 计算贴进度
     for key in distance:
         relative_closeness[vertices[key]] = distance[key][1] / np.sum(distance[key])
 
@@ -102,13 +102,11 @@ def get_pca_weight(metrics):
 
     df = pd.DataFrame(data=pca_normalized)
     corr = df.corr()
-    print(corr)
 
     eig = np.linalg.eig(corr)
     eigvalue = []
     for i in eig[0]:
         eigvalue.append(i)
-    # print(eigvalue)
     eigvalue.sort(reverse=True)                                      # 特征值排序
 
     principal_component = []
@@ -162,12 +160,17 @@ def metric_save(file_name, metrics):                # 将计算结果保存到xl
 
 def save_all_metrics(file_name, metrics):
     metrics_list = defaultdict(list)
-    temp_list = [('节点名称', 'CFS', 'ERI')]
+    temp_list = [['节点名称']]
     for metric in metrics:
-        for i in metric:
-            metrics_list[i].append(metric[i])
-    for i in metrics_list:
-        temp_list.append((i, metrics_list[i][0], metrics_list[i][1]))
+        temp_list[0].append(metric.name)
+    for metric in metrics:
+        for key in metric.result:
+            metrics_list[key].append(metric.result[key])
+    for node in metrics_list:
+        cache = [node]
+        for value in metrics_list[node]:
+            cache.append(value)
+        temp_list.append(cache)
 
     file = xlwt.Workbook()
     sheet1 = file.add_sheet('sheet1', cell_overwrite_ok=True)

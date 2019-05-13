@@ -94,10 +94,10 @@ TE_System.addEdge('V11', 'Compressor', 0)
 
 cfs = Metric('cfs', TE_System.cfs_calculate(), True)
 eri = Metric('eri', TE_System.eri_calculate(), True)
-
 metrics = (cfs, eri)
 relative_closeness = TOPSIS(metrics)
-print(relative_closeness)
 
-file_name = 'TE_closeness.xls'
-metric_save(file_name, relative_closeness)
+file_name_1 = 'TE_metrics.xls'
+save_all_metrics(file_name_1, metrics)
+file_name_2 = 'relative_closeness.xls'
+metric_save(file_name_2, relative_closeness)

@@ -105,8 +105,9 @@ EC = Metric('EC', nx.eigenvector_centrality(TE_system), True)
 C = Metric('C', nx.constraint(undirected_TE), False)
 FBC = Metric('FBC', nx.current_flow_betweenness_centrality(undirected_TE), True)
 metrics = (DC, CC, FBC, EC, C)
-
 relative_closeness = TOPSIS(metrics)
-file_name = 'YingJ_relative_closeness.xls'
-metric_save(file_name, relative_closeness)
-print(relative_closeness)
+
+file_name_1 = 'TE_metrics_Jiang.xls'
+save_all_metrics(file_name_1, metrics)
+file_name_2 = 'relative_closeness_Jiang.xls'
+metric_save(file_name_2, relative_closeness)
