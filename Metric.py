@@ -140,7 +140,7 @@ def get_pca_weight(metrics):
 
     return weight
 
-def metric_save(file_name, metrics):                # 将计算结果保存到xls文件中
+def closeness_save(file_name, metrics):                # 将计算结果保存到xls文件中
     temp_list = [('节点名称', '贴进度')]
     for metric in metrics:
         temp_list.append((metric, metrics[metric]))
