@@ -110,4 +110,4 @@ relative_closeness = TOPSIS(metrics)
 file_name_1 = 'TE_metrics_Jiang.xls'
 save_all_metrics(file_name_1, metrics)
 file_name_2 = 'relative_closeness_Jiang.xls'
-metric_save(file_name_2, relative_closeness)
+closeness_save(file_name_2, relative_closeness)
