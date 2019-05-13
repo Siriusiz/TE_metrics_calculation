@@ -1,4 +1,4 @@
-# This TEP-Critical-Node-Identification-Algorithm is proposed by 
+# This TEP-Critical-Node-Identification-Algorithm is proposed by Ying Jiang
 # Ying J , Zheng W , Yan Q , et al.
 # AHP-SDG model establishment and key node identification of chemical process system based on complex network[J].
 # Chemical Industry and Engineering Progress, 2018.(In Chinese)
@@ -7,7 +7,7 @@ from Metric import *
 
 TE_system = nx.DiGraph()
 
-# 物料链路
+# Material Links
 TE_system.add_edge('A', 'V1')
 TE_system.add_edge('V1', 'Reactor')
 TE_system.add_edge('D', 'V2')
@@ -25,7 +25,7 @@ TE_system.add_edge('Stripper', 'V9')
 TE_system.add_edge('Stripper', 'Reactor')
 TE_system.add_edge('Compressor', 'Reactor')
 
-# 进料阀信息链路
+# Control Links of Feed Valves
 TE_system.add_edge('A', 'FI1')
 TE_system.add_edge('FI1', 'PLC1')
 TE_system.add_edge('PLC1', 'V1')
@@ -46,7 +46,7 @@ TE_system.add_edge('FI4', 'PLC4')
 TE_system.add_edge('PLC4', 'V4')
 TE_system.add_edge('V4', 'FI4')
 
-# 反应器信息链路
+# Control Links of Reactor
 TE_system.add_edge('Reactor', 'FI5')
 TE_system.add_edge('Reactor', 'LI1')
 TE_system.add_edge('Reactor', 'PI1')
@@ -57,14 +57,14 @@ TE_system.add_edge('TI1', 'PLC5')
 TE_system.add_edge('PLC5', 'V5')
 TE_system.add_edge('V5', 'Reactor')
 
-# 冷凝器信息链路
+# Control Links of Condenser
 TE_system.add_edge('Condenser', 'TI3')
 TE_system.add_edge('TI4', 'PLC6')
 TE_system.add_edge('PLC6', 'V6')
 TE_system.add_edge('V6', 'Condenser')
 TE_system.add_edge('LI1', 'PLC6')
 
-# 分离器信息链路
+# Control Links of Separator
 TE_system.add_edge('Separator', 'TI4')
 TE_system.add_edge('Separator', 'FI6')
 TE_system.add_edge('Separator', 'V7')
@@ -77,7 +77,7 @@ TE_system.add_edge('LI3', 'PLC8')
 TE_system.add_edge('PLC8', 'V8')
 TE_system.add_edge('V8', 'LI3')
 
-# 汽提塔信息链路
+# Control Links of Stripper
 TE_system.add_edge('Stripper', 'PI4')
 TE_system.add_edge('Stripper', 'LI4')
 TE_system.add_edge('LI4', 'PLC9')
@@ -91,7 +91,7 @@ TE_system.add_edge('PLC10', 'V10')
 TE_system.add_edge('V10', 'Stripper')
 TE_system.add_edge('V10', 'FI8')
 
-# 压缩器信息链路
+# Control Links of Compressor
 TE_system.add_edge('Compressor', 'FI10')
 TE_system.add_edge('FI10', 'PLC11')
 TE_system.add_edge('PLC11', 'V11')
